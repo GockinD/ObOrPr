@@ -7,7 +7,7 @@ public class ProductBasket {
     private int counter;
 
     public void addProduct(Product product) {
-        if (counter > 4) {
+        if (counter == basket.length) {
             System.out.println("Невозможно добавить продукт");
         } else
             basket[counter] = product;
@@ -15,29 +15,25 @@ public class ProductBasket {
     }
 
     public int calculateAmount() {
-        boolean emptyBasket = true;
         int sum = 0;
         for (int i = 0; i < basket.length; i++) {
             if (basket[i] != null) {
-                emptyBasket = false;
                 sum = sum + basket[i].getPrice();
             }
         }
-        if (emptyBasket) {
+        if (counter == 0) {
             System.out.println("В корзине пусто");
         }
         return sum;
     }
 
     public void printContent() {
-        boolean emptyBasket = true;
         for (int i = 0; i < basket.length; i++) {
             if (basket[i] != null) {
-                emptyBasket = false;
                 System.out.println(basket[i].toString());
             }
         }
-        if (emptyBasket) {
+        if (counter == 0) {
             System.out.println("В корзине пусто");
         }else {
             System.out.println("Итого: " + calculateAmount());
@@ -45,14 +41,12 @@ public class ProductBasket {
     }
 
     public boolean searchProduct(String name) {
-        boolean emptyBasket = true;
         for (int i = 0; i < basket.length; i++) {
             if (basket[i] != null && basket[i].getNameProduct().equals(name)) {
-                emptyBasket = false;
                 return true;
             }
         }
-        if (emptyBasket) {
+        if (counter == 0) {
             System.out.println("В корзине пусто");
         }
         return false;
