@@ -1,24 +1,19 @@
-package skyshop.product;
-
-public class Product {
+public abstract class Product {
     private String nameProduct;
-    private int price;
 
-    public Product(String nameProduct, int price) {
+    public Product(String nameProduct) {
         this.nameProduct = nameProduct;
-        this.price = price;
     }
 
     public String getNameProduct() {
         return nameProduct;
     }
 
-    public int getPrice() {
-        return price;
-    }
+    public abstract int getPrice();
+}
 
-    @Override
-    public String toString() {
-        return nameProduct + ": " + price;
-    }
+@Override
+public String toString() {
+    return nameProduct;
+}
 }
