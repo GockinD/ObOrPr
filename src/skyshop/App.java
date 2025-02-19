@@ -1,17 +1,20 @@
 package skyshop;
 
+import skyshop.product.DiscountedProduct;
+import skyshop.product.FixPriceProduct;
 import skyshop.product.Product;
 
 import skyshop.basket.ProductBasket;
+import skyshop.product.SimpleProduct;
 
 class App {
     public static void main(String[] args) {
-        Product tomato = new Product("Помидор", 120);
-        Product cucumber = new Product("Огурец", 100);
-        Product bread = new Product("Хлеб", 30);
-        Product milk = new Product("Молоко", 30);
-        Product sausage = new Product("Колбаса", 270);
-        Product aceCream = new Product("Мороженое", 270);
+        SimpleProduct tomato = new SimpleProduct("Помидор", 120);
+        FixPriceProduct cucumber = new FixPriceProduct("Огурец");
+        DiscountedProduct bread = new DiscountedProduct("Хлеб", 30, 5);
+        DiscountedProduct milk = new DiscountedProduct("Молоко", 30, 5);
+        SimpleProduct sausage = new SimpleProduct("Колбаса", 270);
+        FixPriceProduct aceCream = new FixPriceProduct("Мороженое");
 
         ProductBasket basket = new ProductBasket();
 
