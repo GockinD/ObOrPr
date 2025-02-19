@@ -1,3 +1,5 @@
+package skyshop.product;
+
 public abstract class Product {
     private String nameProduct;
 
@@ -10,10 +12,12 @@ public abstract class Product {
     }
 
     public abstract int getPrice();
+
+    @Override
+    public String toString() {
+        return nameProduct;
+    }
+
+    public abstract boolean isSpecial();
 }
 
-@Override
-public String toString() {
-    return nameProduct;
-}
-}
