@@ -1,11 +1,15 @@
 package skyshop;
 
+import skyshop.article.Article;
 import skyshop.product.DiscountedProduct;
 import skyshop.product.FixPriceProduct;
 import skyshop.product.Product;
 
 import skyshop.basket.ProductBasket;
 import skyshop.product.SimpleProduct;
+import skyshop.search.SearchEngine;
+
+import java.util.Arrays;
 
 class App {
     public static void main(String[] args) {
@@ -36,5 +40,29 @@ class App {
         basket.printContent();
         System.out.println(basket.calculateAmount());
         System.out.println(basket.searchProduct("Молоко"));
+
+        SearchEngine searchEngines = new SearchEngine(10);
+        searchEngines.add(tomato);
+        searchEngines.add(cucumber);
+        searchEngines.add(bread);
+        searchEngines.add(milk);
+        searchEngines.add(sausage);
+        searchEngines.add(aceCream);
+
+        Article tomatoes = new Article("Томаты", "Томаты в большинстве случаев красные");
+        Article cucumbers = new Article("Огурцы", "Огурцы всега зеленые");
+        Article breads = new Article("Хлебы", "Хлебы всега сытные");
+
+        searchEngines.add(tomatoes);
+        searchEngines.add(cucumbers);
+        searchEngines.add(breads);
+
+        System.out.println(Arrays.toString(searchEngines.search("Помидор")));
+        System.out.println(Arrays.toString(searchEngines.search("Огурец")));
+        System.out.println(Arrays.toString(searchEngines.search("Огурцы")));
     }
+
+
+
+
 }
