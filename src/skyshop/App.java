@@ -8,6 +8,8 @@ import skyshop.product.Product;
 import skyshop.basket.ProductBasket;
 import skyshop.product.SimpleProduct;
 import skyshop.search.SearchEngine;
+import skyshop.search.BestResultNotFound;
+import skyshop.search.Searchable;
 
 import java.util.Arrays;
 
@@ -19,6 +21,21 @@ class App {
         DiscountedProduct milk = new DiscountedProduct("Молоко", 30, 5);
         SimpleProduct sausage = new SimpleProduct("Колбаса", 270);
         FixPriceProduct aceCream = new FixPriceProduct("Мороженое");
+        try {
+            SimpleProduct potato = new SimpleProduct("Картофель", -120);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            SimpleProduct apple = new SimpleProduct("", 50);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            DiscountedProduct banana = new DiscountedProduct("Банан", 70, 120);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 
         ProductBasket basket = new ProductBasket();
 
@@ -60,6 +77,26 @@ class App {
         System.out.println(Arrays.toString(searchEngines.search("Помидор")));
         System.out.println(Arrays.toString(searchEngines.search("Огурец")));
         System.out.println(Arrays.toString(searchEngines.search("Огурцы")));
+
+        try {
+            Searchable bestMatch = searchEngines.findBestMatch("Помидор");
+            System.out.println(bestMatch);
+        } catch (BestResultNotFound b) {
+            System.out.println(b.getMessage());
+        }
+        try {
+            Searchable bestMatch = searchEngines.findBestMatch("апель");
+            System.out.println(bestMatch);
+        } catch (BestResultNotFound b) {
+            System.out.println(b.getMessage());
+        }
+        try {
+            Searchable bestMatch = searchEngines.findBestMatch("");
+            System.out.println(bestMatch);
+        } catch (BestResultNotFound b) {
+            System.out.println(b.getMessage());
+        }
+
     }
 
 
