@@ -2,15 +2,16 @@ package skyshop.basket;
 
 import skyshop.product.Product;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class ProductBasket {
-    private Product[] basket = new Product[5];
-    private int counter;
+    LinkedList<Product> basket = new LinkedList<>();
+    private int counter = 0;
 
     public void addProduct(Product product) {
-        if (counter == basket.length) {
-            System.out.println("Невозможно добавить продукт");
-        } else
-            basket[counter] = product;
+        basket.add(product);
         counter++;
     }
 
@@ -29,20 +30,18 @@ public class ProductBasket {
 
     public void printContent() {
         int special = 0;
-        for (int i = 0; i < basket.length; i++) {
-            if (basket[i] != null) {
-                System.out.println(basket[i].toString());
-            }
-            if (basket[i] != null && basket[i].isSpecial()) {
+        if (basket.isEmpty()) {
+            System.out.println("В корзине пусто");
+        } else {
+            System.out.println("Содержимое корзины: \n" + basket.toString());
+            System.out.println("Итого: " + calculateAmount());
+        }
+        for (Product products : basket) {
+            if (products.isSpecial()) {
                 special++;
             }
         }
-        if (counter == 0) {
-            System.out.println("В корзине пусто");
-        }else {
-            System.out.println("Итого: " + calculateAmount());
-            System.out.println("Специальных товаров: " + special);
-        }
+        System.out.println("Специальных товаров: " + special);
     }
 
     public boolean searchProduct(String name) {
@@ -58,9 +57,20 @@ public class ProductBasket {
     }
 
     public void clearBasket() {
-        for (int i = 0; i < basket.length; i++) {
-            basket[i] = null;
-            counter = 0;
+        basket.clear();
+    }
+
+    public List<Product> removeProduct(String name) {
+        List<Product> removedProducts = new LinkedList<>();
+        Iterator<Product> iterator = basket.iterator();
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getNameProduct().contains(name)) {
+                removedProducts.add(product);
+                iterator.remove();
+            }
         }
+        return removedProducts;
     }
 }
+

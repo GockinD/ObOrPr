@@ -11,7 +11,10 @@ import skyshop.search.SearchEngine;
 import skyshop.search.BestResultNotFound;
 import skyshop.search.Searchable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 class App {
     public static void main(String[] args) {
@@ -44,19 +47,7 @@ class App {
         basket.addProduct(cucumber);
         basket.addProduct(bread);
         basket.addProduct(milk);
-        basket.addProduct(aceCream);
-
         basket.printContent();
-
-        System.out.println(basket.calculateAmount());
-
-        System.out.println(basket.searchProduct("Молоко"));
-        System.out.println(basket.searchProduct("Мороженое"));
-
-        basket.clearBasket();
-        basket.printContent();
-        System.out.println(basket.calculateAmount());
-        System.out.println(basket.searchProduct("Молоко"));
 
         SearchEngine searchEngines = new SearchEngine(10);
         searchEngines.add(tomato);
@@ -74,9 +65,9 @@ class App {
         searchEngines.add(cucumbers);
         searchEngines.add(breads);
 
-        System.out.println(Arrays.toString(searchEngines.search("Помидор")));
-        System.out.println(Arrays.toString(searchEngines.search("Огурец")));
-        System.out.println(Arrays.toString(searchEngines.search("Огурцы")));
+        System.out.println(searchEngines.search("Помидор"));
+        System.out.println(searchEngines.search("Огурец"));
+        System.out.println(searchEngines.search("Огурцы"));
 
         try {
             Searchable bestMatch = searchEngines.findBestMatch("Помидор");
@@ -96,10 +87,13 @@ class App {
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
-
+        List removeProducts= basket.removeProduct("Огур");
+        System.out.println("Удаленные товары " + removeProducts);
+        basket.printContent();
+        List removeProducts1= basket.removeProduct("апельсин");
+        if (removeProducts1.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        basket.printContent();
     }
-
-
-
-
 }
