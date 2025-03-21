@@ -11,10 +11,7 @@ import skyshop.search.SearchEngine;
 import skyshop.search.BestResultNotFound;
 import skyshop.search.Searchable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 class App {
     public static void main(String[] args) {
@@ -70,30 +67,36 @@ class App {
         System.out.println(searchEngines.search("Огурцы"));
 
         try {
-            Searchable bestMatch = searchEngines.findBestMatch("Помидор");
+            Map<String, Searchable> bestMatch = searchEngines.findBestMatch("Помидор");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
+
         try {
-            Searchable bestMatch = searchEngines.findBestMatch("апель");
+            Map<String, Searchable> bestMatch = searchEngines.findBestMatch("апель");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
+
         try {
-            Searchable bestMatch = searchEngines.findBestMatch("");
+            Map<String, Searchable> bestMatch = searchEngines.findBestMatch("");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
-        List removeProducts= basket.removeProduct("Огур");
-        System.out.println("Удаленные товары " + removeProducts);
+
         basket.printContent();
-        List removeProducts1= basket.removeProduct("апельсин");
-        if (removeProducts1.isEmpty()) {
-            System.out.println("Список пуст");
-        }
+        basket.removeProduct("Огурец");
+        basket.printContent();
+        basket.removeProduct("апельсин");
+        basket.printContent();
+
+        System.out.println(searchEngines.search("Помидор"));
+
+
+        basket.clearBasket();
         basket.printContent();
     }
 }
