@@ -2,6 +2,8 @@ package skyshop.article;
 
 import skyshop.search.Searchable;
 
+import java.util.Objects;
+
 public class Article implements Searchable {
     String articleTitle;
     String textArticle;
@@ -29,4 +31,15 @@ public class Article implements Searchable {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(articleTitle, article.articleTitle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(articleTitle);
+    }
 }

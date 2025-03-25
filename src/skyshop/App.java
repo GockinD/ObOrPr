@@ -11,14 +11,14 @@ import skyshop.search.SearchEngine;
 import skyshop.search.BestResultNotFound;
 import skyshop.search.Searchable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 class App {
     public static void main(String[] args) {
-        SimpleProduct tomato = new SimpleProduct("Помидор", 120);
+        SimpleProduct tomato = new SimpleProduct("Помидор120", 120);
+        SimpleProduct tomato1 = new SimpleProduct("Помидор130", 130);
+        SimpleProduct tomato2 = new SimpleProduct("Помидор90", 90);
+        SimpleProduct tomato3 = new SimpleProduct("Помидор80", 80);
         FixPriceProduct cucumber = new FixPriceProduct("Огурец");
         DiscountedProduct bread = new DiscountedProduct("Хлеб", 30, 5);
         DiscountedProduct milk = new DiscountedProduct("Молоко", 30, 5);
@@ -43,6 +43,9 @@ class App {
         ProductBasket basket = new ProductBasket();
 
         basket.addProduct(tomato);
+        basket.addProduct(tomato1);
+        basket.addProduct(tomato2);
+        basket.addProduct(tomato3);
         basket.addProduct(sausage);
         basket.addProduct(cucumber);
         basket.addProduct(bread);
@@ -51,13 +54,16 @@ class App {
 
         SearchEngine searchEngines = new SearchEngine(10);
         searchEngines.add(tomato);
+        searchEngines.add(tomato1);
+        searchEngines.add(tomato2);
+        searchEngines.add(tomato3);
         searchEngines.add(cucumber);
         searchEngines.add(bread);
         searchEngines.add(milk);
         searchEngines.add(sausage);
         searchEngines.add(aceCream);
 
-        Article tomatoes = new Article("Томаты", "Томаты в большинстве случаев красные");
+        Article tomatoes = new Article("Помидоры", "Помидоры в большинстве случаев красные");
         Article cucumbers = new Article("Огурцы", "Огурцы всега зеленые");
         Article breads = new Article("Хлебы", "Хлебы всега сытные");
 
@@ -70,30 +76,36 @@ class App {
         System.out.println(searchEngines.search("Огурцы"));
 
         try {
-            Searchable bestMatch = searchEngines.findBestMatch("Помидор");
+            Set<String> bestMatch = searchEngines.findBestMatch("Помидор");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
+
         try {
-            Searchable bestMatch = searchEngines.findBestMatch("апель");
+            Set<String> bestMatch = searchEngines.findBestMatch("апель");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
+
         try {
-            Searchable bestMatch = searchEngines.findBestMatch("");
+            Set<String> bestMatch = searchEngines.findBestMatch("");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
-        List removeProducts= basket.removeProduct("Огур");
-        System.out.println("Удаленные товары " + removeProducts);
+
         basket.printContent();
-        List removeProducts1= basket.removeProduct("апельсин");
-        if (removeProducts1.isEmpty()) {
-            System.out.println("Список пуст");
-        }
+        basket.removeProduct("Огурец");
+        basket.printContent();
+        basket.removeProduct("апельсин");
+        basket.printContent();
+
+        System.out.println(searchEngines.search("Помидор"));
+
+
+        basket.clearBasket();
         basket.printContent();
     }
 }

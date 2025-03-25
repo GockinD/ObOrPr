@@ -2,10 +2,7 @@ package skyshop.search;
 
 import skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class SearchEngine {
     private List<Searchable> searchables;
@@ -14,25 +11,27 @@ public class SearchEngine {
         this.searchables = new ArrayList<>(capacity);
     }
 
-    public List<Searchable> search(String term) {
-        List<Searchable> search = new ArrayList<>();
+    public Set<String> search(String term) {
+        Set<String> search = new TreeSet<>(new Comparator());
         for (Searchable product : searchables) {
-            if (product.getSearchTerm() != null && (product.getSearchTerm()).contains(term)) {
-                search.add(product);
+            if (product != null && product.getSearchTerm() != null) {
+                if (product.getSearchTerm().contains(term)) {
+                    search.add(product.getSearchTerm());
+                }
             }
         }
         return search;
     }
 
 
-    public Searchable findBestMatch(String search) throws BestResultNotFound {
+    public Set<String> findBestMatch(String search) throws BestResultNotFound {
         if (search == null || search.isEmpty()) {
             throw new BestResultNotFound("Поисковой запрос пуст");
         }
         if (searchables == null) {
             throw new BestResultNotFound("Список пуст");
         }
-        Searchable bestMatch = null;
+        Set<String> bestMatch = new TreeSet<>(new Comparator());
         int maxCount = -1;
         for (Searchable searchable : searchables) {
             if (searchable != null) {
@@ -40,7 +39,7 @@ public class SearchEngine {
                 int count = countSubstringOccurrences(str.toLowerCase(), search.toLowerCase());
                 if (count > 0 && count > maxCount) {
                     maxCount = count;
-                    bestMatch = searchable;
+                    bestMatch.add(searchable.getSearchTerm());
                 }
             }
         }
