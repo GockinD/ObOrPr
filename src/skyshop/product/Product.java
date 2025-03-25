@@ -1,24 +1,39 @@
 package skyshop.product;
 
-public class Product {
-    private String nameProduct;
-    private int price;
+import skyshop.search.Searchable;
 
-    public Product(String nameProduct, int price) {
+public abstract class Product implements Searchable {
+    private String nameProduct;
+
+    public Product(String nameProduct) throws IllegalArgumentException {
+        if (nameProduct == null || nameProduct.isBlank()) {
+            throw new IllegalArgumentException("Имя продукта указано неверно");
+        }
         this.nameProduct = nameProduct;
-        this.price = price;
     }
 
     public String getNameProduct() {
         return nameProduct;
     }
 
-    public int getPrice() {
-        return price;
-    }
+    public abstract int getPrice();
 
     @Override
     public String toString() {
-        return nameProduct + ": " + price;
+        return nameProduct;
     }
+
+    @Override
+    public String getContentType() {
+        return "PRODUCT";
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return toString();
+    }
+
+    public abstract boolean isSpecial();
 }
+
+
