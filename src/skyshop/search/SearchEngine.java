@@ -1,7 +1,5 @@
 package skyshop.search;
 
-import skyshop.product.Product;
-
 import java.util.*;
 
 public class SearchEngine {
@@ -12,7 +10,7 @@ public class SearchEngine {
     }
 
     public Set<String> search(String term) {
-        Set<String> search = new TreeSet<>(new Comparator());
+        Set<String> search = new TreeSet<>(new SequenceNumberLetters());
         for (Searchable product : searchables) {
             if (product != null && product.getSearchTerm() != null) {
                 if (product.getSearchTerm().contains(term)) {
@@ -31,7 +29,7 @@ public class SearchEngine {
         if (searchables == null) {
             throw new BestResultNotFound("Список пуст");
         }
-        Set<String> bestMatch = new TreeSet<>(new Comparator());
+        Set<String> bestMatch = new TreeSet<>(new SequenceNumberLetters());
         int maxCount = -1;
         for (Searchable searchable : searchables) {
             if (searchable != null) {

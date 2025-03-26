@@ -1,6 +1,6 @@
 package skyshop.search;
 
-public class Comparator implements java.util.Comparator<String> {
+public class SequenceNumberLetters implements java.util.Comparator<String> {
 
     @Override
     public int compare(String o1, String o2) {
