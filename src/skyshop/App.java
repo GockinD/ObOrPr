@@ -114,5 +114,6 @@ class App {
 
         basket.clearBasket();
         basket.printContent();
+
     }
 }
