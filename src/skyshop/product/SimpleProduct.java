@@ -1,9 +1,9 @@
 package skyshop.product;
 
 public class SimpleProduct extends Product{
-    int price;
+    double price;
 
-    public SimpleProduct(String nameProduct, int price) throws IllegalArgumentException {
+    public SimpleProduct(String nameProduct, double price) throws IllegalArgumentException {
         super(nameProduct);
         if (price <= 0) {
             throw new IllegalArgumentException("Цена должна быть больше 0");
@@ -12,7 +12,7 @@ public class SimpleProduct extends Product{
     }
 
     @Override
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

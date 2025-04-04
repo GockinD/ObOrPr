@@ -1,14 +1,14 @@
 package skyshop.product;
 
 public class FixPriceProduct extends Product{
-    private static final int PRICE = 49;
+    private static final double PRICE = 49;
 
     public FixPriceProduct(String nameProduct) {
         super(nameProduct);
     }
 
     @Override
-    public int getPrice() {
+    public double getPrice() {
         return PRICE;
     }
 

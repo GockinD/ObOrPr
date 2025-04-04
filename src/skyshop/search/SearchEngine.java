@@ -1,6 +1,7 @@
 package skyshop.search;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private List<Searchable> searchables;
@@ -10,15 +11,10 @@ public class SearchEngine {
     }
 
     public Set<String> search(String term) {
-        Set<String> search = new TreeSet<>(new SequenceNumberLetters());
-        for (Searchable product : searchables) {
-            if (product != null && product.getSearchTerm() != null) {
-                if (product.getSearchTerm().contains(term)) {
-                    search.add(product.getSearchTerm());
-                }
-            }
-        }
-        return search;
+        return searchables.stream()
+                .filter(obj -> obj.getSearchTerm().contains(term))
+                .map(Searchable::getSearchTerm)
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SequenceNumberLetters())));
     }
 
 

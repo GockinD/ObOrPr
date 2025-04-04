@@ -1,6 +1,7 @@
 package skyshop.basket;
 
 import skyshop.product.Product;
+import skyshop.search.Searchable;
 
 import java.util.*;
 
@@ -15,37 +16,33 @@ public class ProductBasket {
         counter++;
     }
 
-    public int calculateAmount() {
+    public double calculateAmount() {
         int sum = 0;
-
         if (basket.isEmpty()) {
             System.out.println("В корзине пусто");
             return sum;
         }
-        for (Map.Entry<String, List<Product>> product : basket.entrySet()) {
-            List<Product> products = product.getValue();
-            for (Product product1 : products)
-                sum = sum + product1.getPrice();
-        }
-        return sum;
+        return basket.values().stream()
+                .flatMap(List::stream)
+                .mapToDouble(Product::getPrice)
+                .sum();
     }
 
     public void printContent() {
-        int special = 0;
-        List<Product> allProducts = new ArrayList<>();
-        for (List<Product> products : basket.values()) {
-            allProducts.addAll(products);
+        basket.forEach((name, products) ->
+                System.out.println(products));
+
+        System.out.println("Сумма покупки: " + calculateAmount());
+        if (getSpecialCount() != 0) {
+            System.out.println("Специальных товаров: " + getSpecialCount());
         }
-        for (Product product : allProducts) {
-            if (product.isSpecial()) {
-                special++;
-            }
-        }
-        System.out.println(allProducts);
-        System.out.println("Сумма покупок: " + calculateAmount());
-        if (special != 0) {
-            System.out.println("Специальных товаров: " + special);
-        }
+    }
+
+    private int getSpecialCount() {
+        return (int) basket.values().stream()
+                .flatMap(List::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public void clearBasket() {

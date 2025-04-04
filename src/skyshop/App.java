@@ -39,6 +39,7 @@ class App {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println();
 
         ProductBasket basket = new ProductBasket();
 
@@ -51,6 +52,7 @@ class App {
         basket.addProduct(bread);
         basket.addProduct(milk);
         basket.printContent();
+        System.out.println();
 
         SearchEngine searchEngines = new SearchEngine(10);
         searchEngines.add(tomato);
@@ -72,8 +74,11 @@ class App {
         searchEngines.add(breads);
 
         System.out.println(searchEngines.search("Помидор"));
+        System.out.println();
         System.out.println(searchEngines.search("Огурец"));
+        System.out.println();
         System.out.println(searchEngines.search("Огурцы"));
+        System.out.println();
 
         try {
             Set<String> bestMatch = searchEngines.findBestMatch("Помидор");
@@ -88,22 +93,24 @@ class App {
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
-
         try {
             Set<String> bestMatch = searchEngines.findBestMatch("");
             System.out.println(bestMatch);
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
+        System.out.println();
 
         basket.printContent();
         basket.removeProduct("Огурец");
+        System.out.println();
         basket.printContent();
+        System.out.println();
         basket.removeProduct("апельсин");
         basket.printContent();
+        System.out.println();
 
         System.out.println(searchEngines.search("Помидор"));
-
 
         basket.clearBasket();
         basket.printContent();
